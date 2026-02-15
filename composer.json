@@ -1,0 +1,37 @@
+{
+    "name": "izzuddinmohsin/neuron-sqlserver-toolkit",
+    "description": "SQL Server / Azure SQL Database Toolkit for Neuron AI - The PHP Agentic Framework",
+    "keywords": [
+        "neuron-ai",
+        "sql-server",
+        "azure-sql",
+        "ai-agent",
+        "toolkit",
+        "php",
+        "pdo",
+        "database"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Izzuddin Mohsin",
+            "homepage": "https://github.com/izzuddinmohsin"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "inspector-apm/neuron-ai": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IzzuddinMohsin\\NeuronSQLServer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IzzuddinMohsin\\NeuronSQLServer\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
