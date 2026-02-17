@@ -12,7 +12,7 @@ A SQL Server / Azure SQL Database toolkit for [Neuron AI](https://github.com/neu
 - **Schema Discovery** — Automatically discovers tables, views, columns, relationships, indexes, and constraints
 - **Views Support** — Discovers and distinguishes between tables and views (read-only indicator for LLM)
 - **Read Queries** — Safe SELECT query execution with security validation
-- **Write Operations** — INSERT, UPDATE, DELETE, and MERGE support with SCOPE_IDENTITY() for identity columns
+- **Write Operations** — INSERT, UPDATE, DELETE, and MERGE support with SCOPE\_IDENTITY() for identity columns
 - **Security Hardened** — Blocks dangerous operations like `xp_cmdshell`, `OPENROWSET`, `SELECT INTO`, DDL statements
 - **Positional Parameters** — Uses `?` placeholders (required for SQL Server PDO driver compatibility)
 - **Azure SQL Compatible** — Works with both on-premise SQL Server and Azure SQL Database
@@ -92,7 +92,7 @@ class DataAnalystAgent extends Agent
         );
 
         return [
-            ...SQLServerToolkit::make($pdo)->provide(),
+            SQLServerToolkit::make($pdo),
         ];
     }
 }
@@ -108,12 +108,14 @@ use Illuminate\Support\Facades\DB;
 protected function tools(): array
 {
     return [
-        ...SQLServerToolkit::make(
+        SQLServerToolkit::make(
             DB::connection('sqlsrv')->getPdo()
-        )->provide(),
+        ),
     ];
 }
 ```
+
+> **Note:** Return the toolkit instance directly — the framework will bootstrap it internally and register the guidelines automatically. You don't need to call `->provide()`.
 
 ## Usage
 
@@ -143,9 +145,8 @@ If you want read-only access, use the toolkit's `exclude()` method:
 use IzzuddinMohsin\NeuronSQLServer\SQLServerWriteTool;
 
 // Read-only: exclude the write tool
-...SQLServerToolkit::make($pdo)
-    ->exclude([SQLServerWriteTool::class])
-    ->provide(),
+SQLServerToolkit::make($pdo)
+    ->exclude([SQLServerWriteTool::class]),
 ```
 
 ### Azure SQL Connection
